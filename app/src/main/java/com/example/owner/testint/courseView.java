@@ -25,6 +25,7 @@ public class courseView extends AppCompatActivity  implements View.OnClickListen
     private Button buttonDrop;
     private String s;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,5 +106,6 @@ public class courseView extends AppCompatActivity  implements View.OnClickListen
             String test =  myRef.child("Courses").child(s).getKey();
             Toast.makeText(this, "You have dropped this course",Toast.LENGTH_SHORT).show();
         }
+
     }
 }

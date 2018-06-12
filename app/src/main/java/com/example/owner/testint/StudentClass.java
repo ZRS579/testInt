@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,16 +18,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class courseList extends AppCompatActivity  implements View.OnClickListener {
 
-    private Button profile;
+public class StudentClass extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_list);
+        setContentView(R.layout.activity_student_class);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Course");
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference myRef = database.getReference("users/" + user + "/Courses/");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,9 +51,7 @@ public class courseList extends AppCompatActivity  implements View.OnClickListen
             }
         });
 
-        profile = (Button)findViewById(R.id.button6);
 
-        profile.setOnClickListener(this);
 
     }
 
@@ -75,14 +73,5 @@ public class courseList extends AppCompatActivity  implements View.OnClickListen
                     }
                 }
         );
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v==profile)
-        {
-            finish();
-            startActivity(new Intent(this, ProfileActivity.class));
-        }
     }
 }

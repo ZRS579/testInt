@@ -19,7 +19,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".courseList" />
-        <activity android:name=".courseView"></activity>
+        <activity android:name=".courseView" />
+        <activity android:name=".StudentClass"></activity>
     </application>
 
 </manifest>

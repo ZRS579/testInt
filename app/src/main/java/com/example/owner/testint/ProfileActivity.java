@@ -18,6 +18,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private TextView email;
     private Button buttonLogout;
     private Button courseList;
+    private Button schedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         email.setText(user.getEmail());
         buttonLogout = (Button)findViewById(R.id.buttonSignin);
         courseList = (Button)findViewById(R.id.courseList);
+        schedule = (Button)findViewById(R.id.button5);
 
         buttonLogout.setOnClickListener(this);
         courseList.setOnClickListener(this);
+        schedule.setOnClickListener(this);
 
     }
 
@@ -57,6 +60,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         {
             finish();
             startActivity(new Intent(this, courseList.class));
+        }
+        if(v==schedule)
+        {
+            finish();
+            startActivity(new Intent(this,StudentClass.class));
         }
     }
 }
