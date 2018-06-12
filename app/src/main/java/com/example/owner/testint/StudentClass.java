@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,7 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 
 
 
-public class StudentClass extends AppCompatActivity {
+public class StudentClass extends AppCompatActivity   implements View.OnClickListener {
+
+    private Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class StudentClass extends AppCompatActivity {
             }
         });
 
+        back = (Button)findViewById(R.id.button7);
+        back.setOnClickListener(this);
 
 
     }
@@ -73,5 +78,14 @@ public class StudentClass extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == back)
+        {
+            finish();
+            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        }
     }
 }
