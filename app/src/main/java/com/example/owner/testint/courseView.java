@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 public class courseView extends AppCompatActivity  implements View.OnClickListener{
 
     private Button buttonBack;
+    private Button buttonRegister;
+    private Button buttonDrop;
+    private String s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +31,7 @@ public class courseView extends AppCompatActivity  implements View.OnClickListen
         setContentView(R.layout.activity_course_view);
 
 
-        String s = getIntent().getStringExtra("COURSE");
+        s = getIntent().getStringExtra("COURSE");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Course/" + s);
 
@@ -48,8 +53,13 @@ public class courseView extends AppCompatActivity  implements View.OnClickListen
         });
 
         buttonBack = (Button)findViewById(R.id.button3);
+        buttonDrop = (Button)findViewById(R.id.button4);
+        buttonRegister = (Button)findViewById(R.id.button2);
+
 
         buttonBack.setOnClickListener(this);
+        buttonDrop.setOnClickListener(this);
+        buttonRegister.setOnClickListener(this);
     }
 
     public void displayCourse(String prof, String name, String start, String end)
@@ -76,6 +86,24 @@ public class courseView extends AppCompatActivity  implements View.OnClickListen
         {
             finish();
             startActivity(new Intent(getApplicationContext(), courseList.class));
+        }
+        if (v == buttonRegister)
+        {
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("users/" + user);
+            myRef.child("Courses").child(s).setValue("Blargh? Blorggg");
+            Toast.makeText(this, "You have joined this course",Toast.LENGTH_SHORT).show();
+        }
+
+        if (v==buttonDrop)
+        {
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("users/" + user);
+            myRef.child("Courses").child(s).setValue(null);
+            String test =  myRef.child("Courses").child(s).getKey();
+            Toast.makeText(this, "You have dropped this course",Toast.LENGTH_SHORT).show();
         }
     }
 }
